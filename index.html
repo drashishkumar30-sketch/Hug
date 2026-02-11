@@ -5,69 +5,86 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Hug Day Yukti ❤️</title>
 
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ffd6e0, #ffeef3);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     text-align: center;
-    color: white;
 }
 
 .container {
-    z-index: 2;
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    width: 85%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 h1 {
-    font-size: 30px;
-    animation: glow 2s infinite alternate;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+img {
+    width: 120px;
+    margin: 15px 0;
+    animation: bounce 2s infinite;
 }
 
 button {
     margin: 8px;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 20px;
+    font-size: 15px;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
+    font-weight: 600;
     transition: 0.3s;
 }
 
-.btn {
-    background: white;
-    color: #ff4e6a;
-}
-
-.btn:hover {
-    background: #ff4e6a;
+.btn-main {
+    background: linear-gradient(135deg, #ff4e88, #ff6fa5);
     color: white;
 }
 
-img {
-    width: 140px;
-    margin: 10px 0;
-    animation: bounce 2s infinite;
+.btn-main:hover {
+    transform: scale(1.05);
 }
 
 #message {
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: 600;
+    color: #ff4e88;
 }
 
 .countdown {
-    margin-top: 8px;
-    font-style: italic;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
 }
 
 .missyou {
-    margin-top: 12px;
-    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #ff4e88;
     animation: heartbeat 1s infinite;
 }
 
@@ -79,19 +96,14 @@ img {
     100% { transform: scale(1); }
 }
 
-@keyframes glow {
-    from { text-shadow: 0 0 10px white; }
-    to { text-shadow: 0 0 20px red; }
-}
-
 @keyframes bounce {
     0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-8px); }
 }
 
-.heart, .kiss, .confetti {
+.emoji {
     position: absolute;
-    font-size: 20px;
+    font-size: 22px;
     animation: float 4s linear forwards;
 }
 
@@ -101,15 +113,17 @@ img {
 }
 
 .final-screen {
-    position: absolute;
-    background: linear-gradient(135deg, #ff4e6a, #ff758c);
+    position: fixed;
+    background: linear-gradient(135deg, #ff4e88, #ff6fa5);
+    color: white;
     width: 100%;
     height: 100%;
     display: none;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 600;
     padding: 20px;
 }
 </style>
@@ -122,15 +136,15 @@ img {
 </audio>
 
 <div class="container" id="mainContent">
-    <h1>Happy Hug Day Yukti 🤗❤️</h1>
+    <h1>Happy Hug Day Yukti 🤗</h1>
 
     <img src="https://i.imgur.com/8Km9tLL.png" alt="Teddy">
 
     <p>Yukti, do you want a hug?</p>
 
-    <button class="btn" onclick="showMsg('Big')">Big 🤗</button>
-    <button class="btn" onclick="showMsg('Very Big')">Very Big 🥰</button>
-    <button class="btn" onclick="showMsg('My Type')">My Type 😏</button>
+    <button class="btn-main" onclick="showMsg('Big')">Big 🤗</button>
+    <button class="btn-main" onclick="showMsg('Very Big')">Very Big 🥰</button>
+    <button class="btn-main" onclick="showMsg('My Type')">My Type 😏</button>
 
     <div id="message"></div>
 
@@ -144,7 +158,7 @@ img {
 </div>
 
 <div class="final-screen" id="finalScreen">
-    See you in 20 days, <br><br>
+    See you in 20 days,<br><br>
     My huggie partner 🤗❤️
 </div>
 
@@ -156,22 +170,22 @@ function showMsg(type) {
         text = "A big warm hug coming your way Yukti 💕";
     } 
     else if(type === "Very Big") {
-        text = "Very big hug loading... squeeze level 100% 🤭❤️";
+        text = "Very big hug loading... squeeze level 100% 🥰";
     } 
     else {
-        text = "My type hug? I’m not letting go anytime soon Yukti 😌💖";
-        explodeKiss();
-        explodeConfetti();
+        text = "My type hug? I’m not letting go anytime soon Yukti 😌";
+        explode("😘", 20);
+        explode("🎉", 25);
         setTimeout(showFinalScreen, 4000);
     }
 
     document.getElementById("message").innerHTML = text;
 }
 
-function createFloatingEmoji(className, emoji, count) {
+function explode(emoji, count) {
     for(let i = 0; i < count; i++) {
         const el = document.createElement("div");
-        el.classList.add(className);
+        el.classList.add("emoji");
         el.innerHTML = emoji;
         el.style.left = Math.random() * 100 + "vw";
         el.style.top = Math.random() * 80 + "vh";
@@ -183,34 +197,11 @@ function createFloatingEmoji(className, emoji, count) {
     }
 }
 
-function explodeKiss() {
-    createFloatingEmoji("kiss", "😘", 20);
-}
-
-function explodeConfetti() {
-    createFloatingEmoji("confetti", "🎉", 25);
-}
-
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 4000);
-}
-
 function showFinalScreen() {
     document.getElementById("mainContent").style.display = "none";
     document.getElementById("finalScreen").style.display = "flex";
 }
-
-setInterval(createHeart, 400);
 </script>
 
 </body>
 </html>
-
