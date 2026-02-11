@@ -40,13 +40,12 @@ h1 {
 
 p {
     font-size: 16px;
-    font-weight: 400;
 }
 
 img {
-    width: 120px;
+    width: 130px;
     margin: 15px 0;
-    animation: bounce 2s infinite;
+    border-radius: 15px;
 }
 
 button {
@@ -96,11 +95,6 @@ button {
     100% { transform: scale(1); }
 }
 
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
-
 .emoji {
     position: absolute;
     font-size: 22px;
@@ -136,11 +130,12 @@ button {
 </audio>
 
 <div class="container" id="mainContent">
-    <h1>Happy Hug Day Yukti 💋</h1>
+    <h1>Happy Hug Day Yukti 🤗</h1>
 
-    <img src="https://i.imgur.com/8Km9tLL.png" alt="Teddy">
+    <!-- Cute Cat GIF -->
+    <img id="startGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cute Cat">
 
-    <p>My baby what type of hug do you want?</p>
+    <p>Yukti, do you want a hug?</p>
 
     <button class="btn-main" onclick="showMsg('Big')">Big 🤗</button>
     <button class="btn-main" onclick="showMsg('Very Big')">Very Big 🥰</button>
@@ -153,27 +148,29 @@ button {
     </div>
 
     <div class="missyou">
-        I Miss you mera rasgulla💋
+        Miss you Yukti 💓
     </div>
 </div>
 
 <div class="final-screen" id="finalScreen">
     See you in 20 days,<br><br>
-    My beautiphool wifey 🤫❤️
+    My huggie partner 🤗❤️
 </div>
 
 <script>
 function showMsg(type) {
     let text = "";
 
+    document.getElementById("startGif").style.display = "none";
+
     if(type === "Big") {
-        text = "A big warm hug coming your way darling💕";
+        text = "A big warm hug coming your way Yukti 💕";
     } 
     else if(type === "Very Big") {
-        text = "Very big hug loading... squeeze level 100% 😌";
+        text = "Very big hug loading... squeeze level 100% 🥰";
     } 
     else {
-        text = "My type hug? I’m not letting go anytime soon my cookie😌";
+        text = "My type hug? I’m not letting go anytime soon Yukti 😌";
         explode("😘", 20);
         explode("🎉", 25);
         setTimeout(showFinalScreen, 4000);
