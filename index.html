@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Hug Day Yukti ❤️</title>
 
-<!-- Poppins Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -38,10 +37,6 @@ h1 {
     margin-bottom: 15px;
 }
 
-p {
-    font-size: 16px;
-}
-
 img {
     width: 130px;
     margin: 15px 0;
@@ -64,8 +59,26 @@ button {
     color: white;
 }
 
-.btn-main:hover {
-    transform: scale(1.05);
+.small {
+    transform: scale(0.9);
+    opacity: 0.85;
+}
+
+.special {
+    font-size: 18px;
+    padding: 16px 28px;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 15px rgba(255,78,136,0.6);
+}
+
+.special:hover {
+    transform: scale(1.2);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 #message {
@@ -95,15 +108,20 @@ button {
     100% { transform: scale(1); }
 }
 
-.emoji {
-    position: absolute;
-    font-size: 22px;
-    animation: float 4s linear forwards;
+/* CONFETTI */
+.confetti {
+    position: fixed;
+    width: 8px;
+    height: 14px;
+    top: -20px;
+    animation: fall 3s linear forwards;
 }
 
-@keyframes float {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-200px); opacity: 0; }
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 .final-screen {
@@ -132,64 +150,68 @@ button {
 <div class="container" id="mainContent">
     <h1>Happy Hug Day Yukti 💋</h1>
 
-    <!-- Cute Cat GIF -->
     <img id="startGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cute Cat">
 
-    <p>Baby what type of hug do you want?</p>
+    <p>Yukti, do you want a hug?</p>
 
-    <button class="btn-main" onclick="showMsg('Big')">Big 🤗</button>
-    <button class="btn-main" onclick="showMsg('Very Big')">Very Big 🥰</button>
-    <button class="btn-main" onclick="showMsg('My Type')">My Type 😏</button>
+    <button class="btn-main small" onclick="showMsg('Big')">Big </button>
+    <button class="btn-main small" onclick="showMsg('Very Big')">Very Big </button>
+    <button class="btn-main special" onclick="showMsg('My Type', this)">My Type </button>
 
     <div id="message"></div>
 
     <div class="countdown">
-        20 days left until I hug you for real 🤫
+        20 days left until I hug you for real 💕
     </div>
 
     <div class="missyou">
-        Miss you my baby💋
+        Miss you my baby 💋
     </div>
 </div>
 
 <div class="final-screen" id="finalScreen">
     See you in 20 days,<br><br>
-    My cuddle bear😗
+    My cuddle bear💋👀
 </div>
 
 <script>
-function showMsg(type) {
+function showMsg(type, btn) {
     let text = "";
 
     document.getElementById("startGif").style.display = "none";
 
     if(type === "Big") {
-        text = "A big warm hug coming your way 💕";
+        text = "A big warm hug coming your way baby";
     } 
     else if(type === "Very Big") {
-        text = "Very big hug loading... squeeze level 100% 🤭";
+        text = "Very big hug loading... squeeze level 100% 👀";
     } 
     else {
-        text = "My type hug? I’m not letting go anytime soon baby😌";
-        explode("💋", 20);
-        explode("💋", 25);
+        text = "My type hug? I’m not letting go anytime soon baby💋";
+
+        btn.style.transform = "scale(1.5)";
+        btn.style.transition = "0.4s";
+
+        launchConfetti();
         setTimeout(showFinalScreen, 4000);
     }
 
     document.getElementById("message").innerHTML = text;
 }
 
-function explode(emoji, count) {
-    for(let i = 0; i < count; i++) {
-        const el = document.createElement("div");
-        el.classList.add("emoji");
-        el.innerHTML = emoji;
-        el.style.left = Math.random() * 100 + "vw";
-        el.style.top = Math.random() * 80 + "vh";
-        document.body.appendChild(el);
+function launchConfetti() {
+    const colors = ["#ff4e88", "#ff6fa5", "#ffd700", "#00c3ff", "#7cff00"];
+
+    for(let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(confetti);
 
         setTimeout(() => {
-            el.remove();
+            confetti.remove();
         }, 4000);
     }
 }
