@@ -1,225 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Hug Day Yukti ❤️</title>
+    <meta charset="UTF-8">
+    <title>Our 3 Days ❤️</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+        .container {
+            background: rgba(255, 0, 90, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(255, 0, 90, 0.4);
+        }
 
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffd6e0, #ffeef3);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    text-align: center;
-}
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff005a;
+            color: white;
+        }
 
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 25px;
-    width: 85%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    position: relative;
-}
+        select, input {
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
 
-h1 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-img {
-    width: 130px;
-    margin: 15px 0;
-    border-radius: 15px;
-}
-
-button {
-    margin: 8px;
-    padding: 12px 20px;
-    font-size: 15px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.btn-main {
-    background: linear-gradient(135deg, #ff4e88, #ff6fa5);
-    color: white;
-}
-
-.small {
-    transform: scale(0.9);
-    opacity: 0.85;
-}
-
-.special {
-    font-size: 18px;
-    padding: 16px 28px;
-    animation: pulse 1.5s infinite;
-    box-shadow: 0 0 15px rgba(255,78,136,0.6);
-}
-
-.special:hover {
-    transform: scale(1.2);
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-#message {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #ff4e88;
-}
-
-.countdown {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #888;
-}
-
-.missyou {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #ff4e88;
-    animation: heartbeat 1s infinite;
-}
-
-@keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.1); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-/* CONFETTI */
-.confetti {
-    position: fixed;
-    width: 8px;
-    height: 14px;
-    top: -20px;
-    animation: fall 3s linear forwards;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-.final-screen {
-    position: fixed;
-    background: linear-gradient(135deg, #ff4e88, #ff6fa5);
-    color: white;
-    width: 100%;
-    height: 100%;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 600;
-    padding: 20px;
-}
-</style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<audio autoplay loop>
-    <source src="romantic.mp3" type="audio/mpeg">
-</audio>
+<div class="container">
 
-<div class="container" id="mainContent">
-    <h1>Happy Hug Day Yukti 💋</h1>
+    <h1>Hey Yukti ❤️</h1>
+    <h2>Would you go on a date with me?</h2>
 
-    <img id="startGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cute Cat">
+    <button onclick="startDate()">Yes 💘</button>
+    <button onclick="sayNo()">No 😌</button>
 
-    <p>Tell me, what type of hug do you want ?</p>
+    <div id="step2" class="hidden">
+        <h2>Choose our Date Night</h2>
+        <select id="dateType">
+            <option value="Candle Light Dinner">Candle Light Dinner 🕯️</option>
+            <option value="Beach Walk">Beach Walk 🌊</option>
+            <option value="Rooftop Under the Stars">Rooftop Under the Stars ✨</option>
+        </select>
 
-    <button class="btn-main small" onclick="showMsg('Big')">Big </button>
-    <button class="btn-main small" onclick="showMsg('Very Big')">Very Big </button>
-    <button class="btn-main special" onclick="showMsg('My Type', this)">My Type </button>
+        <h2>What food would you like to have?</h2>
+        <input type="text" id="foodChoice" placeholder="Type your favorite food...">
 
-    <div id="message"></div>
-
-    <div class="countdown">
-        20 days left until I hug you for real 💕
+        <br><br>
+        <button onclick="finalMessage()">Confirm 💌</button>
     </div>
 
-    <div class="missyou">
-        Miss you my baby 💋
-    </div>
-</div>
+    <div id="final" class="hidden"></div>
 
-<div class="final-screen" id="finalScreen">
-    See you in 20 days,<br><br>
-    My cuddle bear💋👀
 </div>
 
 <script>
-function showMsg(type, btn) {
-    let text = "";
 
-    document.getElementById("startGif").style.display = "none";
-
-    if(type === "Big") {
-        text = "A big warm hug coming your way baby";
-    } 
-    else if(type === "Very Big") {
-        text = "Very big hug loading... squeeze level 100% 👀";
-    } 
-    else {
-        text = "My type hug? I’m not letting go anytime soon baby💋";
-
-        btn.style.transform = "scale(1.5)";
-        btn.style.transition = "0.4s";
-
-        launchConfetti();
-        setTimeout(showFinalScreen, 4000);
-    }
-
-    document.getElementById("message").innerHTML = text;
+function startDate() {
+    document.getElementById("step2").classList.remove("hidden");
 }
 
-function launchConfetti() {
-    const colors = ["#ff4e88", "#ff6fa5", "#ffd700", "#00c3ff", "#7cff00"];
-
-    for(let i = 0; i < 100; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
-        document.body.appendChild(confetti);
-
-        setTimeout(() => {
-            confetti.remove();
-        }, 4000);
-    }
+function sayNo() {
+    alert("Error 404: Option Not Accepted 😌 Retry until answer = Yes ❤️");
 }
 
-function showFinalScreen() {
-    document.getElementById("mainContent").style.display = "none";
-    document.getElementById("finalScreen").style.display = "flex";
+function finalMessage() {
+    const dateType = document.getElementById("dateType").value;
+    const food = document.getElementById("foodChoice").value;
+
+    const finalDiv = document.getElementById("final");
+    finalDiv.classList.remove("hidden");
+
+    finalDiv.innerHTML = `
+        <h2>Access Granted 💖</h2>
+        <p>Our Date Plan: <b>${dateType}</b></p>
+        <p>Food Selected: <b>${food}</b> 🍽️</p>
+        <p>For the next 3 days...</p>
+        <p>I promise to be your 24/7 security guard of happiness ❤️</p>
+        <p>No bugs. No errors.</p>
+        <p>Just us.</p>
+    `;
 }
+
 </script>
 
 </body>
