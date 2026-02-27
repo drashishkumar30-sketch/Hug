@@ -1,105 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Our 3 Days ❤️</title>
-    <style>
-        body {
-            background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 100px;
-        }
+<meta charset="UTF-8">
+<title>Our 3 Days ❤️</title>
 
-        .container {
-            background: rgba(255, 0, 90, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            width: 60%;
-            margin: auto;
-            box-shadow: 0 0 20px rgba(255, 0, 90, 0.4);
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background: #0f0f0f;
+    color: white;
+}
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #ff005a;
-            color: white;
-        }
+.slider {
+    display: flex;
+    width: 600%;
+    height: 100vh;
+    transition: transform 0.8s ease-in-out;
+}
 
-        select, input {
-            padding: 8px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
+.slide {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+}
 
-        .hidden {
-            display: none;
-        }
-    </style>
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+button {
+    padding: 12px 25px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 10px;
+    background: #ff005a;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.countdown {
+    font-size: 30px;
+    margin-top: 20px;
+    color: #ff4d88;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
+<div class="slider" id="slider">
 
-    <h1>Hey Yukti ❤️</h1>
-    <h2>Would you go on a date with me?</h2>
+<!-- Slide 1 -->
+<div class="slide">
+    <h1>2 Days Until I See You ❤️</h1>
+    <div class="countdown" id="countdown"></div>
+    <button onclick="nextSlide()">Enter Our Story</button>
+</div>
 
-    <button onclick="startDate()">Yes 💘</button>
-    <button onclick="sayNo()">No 😌</button>
+<!-- Slide 2 -->
+<div class="slide">
+    <h1>Before We Begin...</h1>
+    <p>Would you go on a date with me?</p>
+    <button onclick="nextSlide()">Yes 💘</button>
+</div>
 
-    <div id="step2" class="hidden">
-        <h2>Choose our Date Night</h2>
-        <select id="dateType">
-            <option value="Candle Light Dinner">Candle Light Dinner 🕯️</option>
-            <option value="Beach Walk">Beach Walk 🌊</option>
-            <option value="Rooftop Under the Stars">Rooftop Under the Stars ✨</option>
-        </select>
+<!-- Slide 3 -->
+<div class="slide">
+    <h1>Day 1 🌆</h1>
+    <p>
+        Evening hug.  
+        Mall chaos.  
+        Arcade battles where I pretend I’ll win.  
+        You choosing the food.  
+        And a night bike ride where I hold you a little tighter.
+    </p>
+    <button onclick="nextSlide()">Next ➜</button>
+</div>
 
-        <h2>What food would you like to have?</h2>
-        <input type="text" id="foodChoice" placeholder="Type your favorite food...">
+<!-- Slide 4 -->
+<div class="slide">
+    <h1>Day 2 🌊</h1>
+    <p>
+        Temple visit together.  
+        Walking barefoot on the beach.  
+        Sunset pictures.  
+        Sitting quietly while the sea moves endlessly.  
+        Holding your hand — not just for fun, but with intention.
+    </p>
+    <button onclick="nextSlide()">Next ➜</button>
+</div>
 
-        <br><br>
-        <button onclick="finalMessage()">Confirm 💌</button>
-    </div>
+<!-- Slide 5 -->
+<div class="slide">
+    <h1>Day 3 🕯️</h1>
+    <p>
+        Late wake up.  
+        Balcony coffee debates.  
+        Cozy bathtub time.  
+        Mini fashion show in the room.  
+        Pillow fights.  
+        Slow music.  
+        Laughing too much.  
+        Just us.
+    </p>
+    <button onclick="nextSlide()">Final ➜</button>
+</div>
 
-    <div id="final" class="hidden"></div>
+<!-- Slide 6 -->
+<div class="slide">
+    <h1>This Is Just The Beginning ❤️</h1>
+    <p>
+        These are just 3 days.  
+        But if you let me...  
+        I’d like to plan many more.
+    </p>
+</div>
 
 </div>
 
 <script>
+let currentSlide = 0;
+const slider = document.getElementById("slider");
 
-function startDate() {
-    document.getElementById("step2").classList.remove("hidden");
+function nextSlide() {
+    currentSlide++;
+    slider.style.transform = `translateX(-${currentSlide * 100}vw)`;
 }
 
-function sayNo() {
-    alert("Error 404: Option Not Accepted 😌 Retry until answer = Yes ❤️");
+/* Countdown */
+const countdownElement = document.getElementById("countdown");
+
+// Set target date (2 days from now)
+let targetDate = new Date();
+targetDate.setDate(targetDate.getDate() + 2);
+
+function updateCountdown() {
+    const now = new Date();
+    const difference = targetDate - now;
+
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / 1000 / 60) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    countdownElement.innerHTML =
+        hours + "h " + minutes + "m " + seconds + "s";
 }
 
-function finalMessage() {
-    const dateType = document.getElementById("dateType").value;
-    const food = document.getElementById("foodChoice").value;
-
-    const finalDiv = document.getElementById("final");
-    finalDiv.classList.remove("hidden");
-
-    finalDiv.innerHTML = `
-        <h2>Access Granted 💖</h2>
-        <p>Our Date Plan: <b>${dateType}</b></p>
-        <p>Food Selected: <b>${food}</b> 🍽️</p>
-        <p>For the next 3 days...</p>
-        <p>I promise to be your 24/7 security guard of happiness ❤️</p>
-        <p>No bugs. No errors.</p>
-        <p>Just us.</p>
-    `;
-}
-
+setInterval(updateCountdown, 1000);
+updateCountdown();
 </script>
 
 </body>
