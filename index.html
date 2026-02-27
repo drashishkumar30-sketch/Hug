@@ -83,7 +83,6 @@ input[type="text"], select, input[type="range"] {
     opacity: 0.7;
 }
 
-/* Floating hearts */
 .heart {
     position: fixed;
     font-size: 20px;
@@ -113,6 +112,13 @@ hr {
     border: 0;
     height: 1px;
     background: #ffd6e8;
+}
+
+.countdown {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ff66a3;
+    margin-top: 10px;
 }
 
 </style>
@@ -214,6 +220,12 @@ Hmm… medium energy 👀
 <button onclick="makePromise()">I promise.</button>
 <div id="promiseResult" class="response hidden"></div>
 
+<div id="finalCountdownSection" class="hidden">
+    <hr>
+    <h2>Day 1 begins soon… 💫</h2>
+    <div id="countdownTimer" class="countdown"></div>
+</div>
+
 </div>
 
 </div>
@@ -222,6 +234,7 @@ Hmm… medium energy 👀
 
 <script>
 
+/* Floating Hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -289,7 +302,6 @@ const sliderText = document.getElementById("sliderText");
 
 slider.oninput = function(){
     let val = this.value;
-
     if(val < 25)
         sliderText.innerHTML = "Acting calm… but I know better 😌";
     else if(val < 50)
@@ -302,7 +314,6 @@ slider.oninput = function(){
 
 function minisoAnswer(choice){
     const response = document.getElementById("minisoResponse");
-
     if(choice.includes("Yessssss")){
         response.innerHTML =
             "<div class='successPop'>Energy noted 🤭✨<br>Miniso product confirmed.</div>";
@@ -310,10 +321,7 @@ function minisoAnswer(choice){
         response.innerHTML =
             "Of course. Madam's wish is already approved 💖";
     }
-
-    for(let i=0;i<10;i++){
-        createHeart();
-    }
+    for(let i=0;i<10;i++){ createHeart(); }
 }
 
 function makePromise(){
@@ -329,6 +337,44 @@ function makePromise(){
 
     document.body.style.background =
         "linear-gradient(135deg,#ffe6f2,#ffd6eb)";
+
+    setTimeout(() => {
+        document.getElementById("finalCountdownSection").classList.remove("hidden");
+        startCountdown();
+    }, 1500);
+}
+
+function startCountdown(){
+    const now = new Date();
+    const target = new Date();
+    const today = now.getDay();
+    let daysUntilSunday = (7 - today) % 7;
+    if(daysUntilSunday === 0) daysUntilSunday = 7;
+    target.setDate(now.getDate() + daysUntilSunday);
+    target.setHours(18, 0, 0, 0);
+
+    const timer = document.getElementById("countdownTimer");
+
+    setInterval(() => {
+        const current = new Date();
+        const diff = target - current;
+
+        if(diff <= 0){
+            timer.innerHTML = "It’s time. 💖";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        timer.innerHTML =
+            days + "d " +
+            hours + "h " +
+            minutes + "m " +
+            seconds + "s";
+    }, 1000);
 }
 
 </script>
