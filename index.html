@@ -15,6 +15,7 @@ body {
     text-align: center;
     overflow-x: hidden;
     color: #5a0033;
+    transition: 0.5s ease;
 }
 
 .container {
@@ -59,10 +60,7 @@ input[type="text"], select, input[type="range"] {
 
 .hidden { display: none; }
 
-.response {
-    margin-top: 12px;
-    font-weight: 500;
-}
+.response { margin-top: 12px; font-weight: 500; }
 
 .watermark {
     position: fixed;
@@ -73,7 +71,7 @@ input[type="text"], select, input[type="range"] {
     opacity: 0.7;
 }
 
-/* Floating Hearts */
+/* Floating hearts */
 .heart {
     position: fixed;
     font-size: 20px;
@@ -127,10 +125,10 @@ hr {
     </select>
 
     <h2>What food would you like?</h2>
-    <input type="text" placeholder="Your favorite...">
+    <input type="text" id="foodInput" placeholder="Your favorite...">
 
     <br><br>
-    <button onclick="showExtra()">Confirm 💌</button>
+    <button onclick="confirmWish()">Confirm 💌</button>
 </div>
 
 <div id="extraSection" class="hidden">
@@ -190,6 +188,13 @@ Hmm… medium energy 👀
 <button onclick="assignDay(3,'Soft & Slow 💫')">Soft & Slow 💫</button>
 <div id="assign3" class="response"></div>
 
+<hr>
+
+<h2>Before we begin…</h2>
+<p>Promise me one thing.</p>
+<button onclick="makePromise()">I promise.</button>
+<div id="promiseResult" class="response hidden"></div>
+
 </div>
 
 </div>
@@ -219,8 +224,23 @@ function sayNo(){
     alert("This heart only accepts YES 😌❤️");
 }
 
-function showExtra(){
-    document.getElementById("extraSection").classList.remove("hidden");
+function confirmWish(){
+    const food = document.getElementById("foodInput").value.trim();
+    if(food === ""){
+        alert("Madam must choose her favorite food first 😌");
+        return;
+    }
+
+    const step2 = document.getElementById("step2");
+    step2.innerHTML = `
+        <h2 class="successPop">Access Granted, Madam 💖</h2>
+        <p class="successPop">Your wish is my command.</p>
+        <p>Preparing ${food} with extra love... 🍽️</p>
+    `;
+
+    setTimeout(() => {
+        document.getElementById("extraSection").classList.remove("hidden");
+    }, 2000);
 }
 
 function checkNickname(){
@@ -240,7 +260,7 @@ function showDay(day){
 
 function assignDay(day, type){
     const messages = {
-        1: "Day 1 locked in. I’ll be " + type + " exactly how you like it.",
+        1: "Day 1 locked in. I’ll be " + type + ".",
         2: "Day 2 confirmed. " + type + " mode activated.",
         3: "Day 3 marked as " + type + ". You asked for it 😌"
     };
@@ -262,6 +282,21 @@ slider.oninput = function(){
     else
         sliderText.innerHTML = "100%? Don’t blame me later 😏";
 };
+
+function makePromise(){
+    const result = document.getElementById("promiseResult");
+    result.classList.remove("hidden");
+    result.innerHTML = `
+        No overthinking.<br>
+        No doubts.<br>
+        No distractions.<br><br>
+        Just us.<br><br>
+        Fully. 💖
+    `;
+
+    document.body.style.background =
+        "linear-gradient(135deg,#ffe6f2,#ffd6eb)";
+}
 
 </script>
 
