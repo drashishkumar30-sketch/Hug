@@ -4,60 +4,50 @@
 <meta charset="UTF-8">
 <title>Our 3 Days ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body {
     margin: 0;
     background: linear-gradient(135deg, #fff5f8, #ffe6f0, #ffffff);
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     text-align: center;
     overflow-x: hidden;
     color: #5a0033;
-}
-
-h1, h2, h3 {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 1px;
+    transition: 0.5s ease;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255,255,255,0.95);
     padding: 50px;
     border-radius: 25px;
     width: 60%;
     margin: 80px auto;
-    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
+    box-shadow: 0 15px 40px rgba(255,105,180,0.25);
     border: 2px solid #ffcce6;
-    animation: fadeIn 1.5s ease-in-out;
+    transition: 0.5s ease;
+}
+
+h1, h2 {
+    font-weight: 600;
 }
 
 button {
     padding: 12px 25px;
     margin: 12px;
-    border-radius: 12px;
+    border-radius: 30px;
     border: none;
     font-size: 15px;
     cursor: pointer;
     background: linear-gradient(45deg, #ff66a3, #ff99cc);
     color: white;
     transition: 0.3s ease;
-    font-weight: 600;
 }
 
 button:hover {
     transform: scale(1.08);
     box-shadow: 0 0 20px #ff99cc;
-}
-
-select, input[type="text"] {
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: 1px solid #ffcce6;
-    width: 60%;
-    text-align: center;
 }
 
 .hidden { display: none; }
@@ -67,21 +57,24 @@ select, input[type="text"] {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+.dim {
+    background: linear-gradient(135deg, #ffd6e8, #ffc2e0);
 }
 
 .watermark {
     position: fixed;
     bottom: 15px;
     right: 20px;
-    font-family: 'Playfair Display', serif;
     font-size: 18px;
     color: #ff99cc;
     opacity: 0.6;
 }
 
-.responseText {
+.response {
     margin-top: 15px;
     font-weight: 500;
 }
@@ -116,45 +109,32 @@ select, input[type="text"] {
 
 <div id="final" class="hidden"></div>
 
-<!-- DRAMATIC QUESTION FLOW -->
-
 <div id="questions" class="hidden">
 
+<div id="q1">
 <h2>How do you want me to be?</h2>
-<button onclick="nextQ(1,'Romantic 💌')">Romantic 💌</button>
-<button onclick="nextQ(1,'Cute 🧸')">Cute 🧸</button>
-<button onclick="nextQ(1,'Hot 😈')">Hot 😈</button>
-<button onclick="nextQ(1,'All of them 🔥')">All of them 🔥</button>
-<div id="q1" class="responseText"></div>
-
-<div id="q2Section" class="hidden">
-<h2>Assign me per day…</h2>
-<p><b>Day 1?</b></p>
-<button onclick="showDay('Gentleman 🎩')">Gentleman 🎩</button>
-<button onclick="showDay('Flirty 😏')">Flirty 😏</button>
-
-<p><b>Day 2?</b></p>
-<button onclick="showDay('Soft 🌙')">Soft 🌙</button>
-<button onclick="showDay('Playful 🌊')">Playful 🌊</button>
-
-<p><b>Day 3?</b></p>
-<button onclick="showDay('Intense 👀')">Intense 👀</button>
-<button onclick="showDay('Slow & Close 💫')">Slow & Close 💫</button>
-
-<div id="dayResponse" class="responseText"></div>
-
-<button onclick="revealQ3()">Continue ➜</button>
+<button onclick="answerQ1('Romantic 💌')">Romantic 💌</button>
+<button onclick="answerQ1('Cute 🧸')">Cute 🧸</button>
+<button onclick="answerQ1('Hot 😈')">Hot 😈</button>
+<button onclick="answerQ1('All of them 🔥')">All of them 🔥</button>
+<div id="q1Res" class="response"></div>
 </div>
 
-<div id="q3Section" class="hidden">
-<h2>What’s the one thing you want from me?</h2>
-<button onclick="finalDrama('Surprise 🎁')">Surprise 🎁</button>
-<button onclick="finalDrama('A Promise 💍')">A Promise 💍</button>
-<button onclick="finalDrama('My Full Attention ❤️')">My Full Attention ❤️</button>
-<button onclick="finalDrama('Something only for you 🔐')">Something only for you 🔐</button>
-
-<div id="finalDramaText" class="responseText"></div>
+<div id="q2" class="hidden">
+<h2>What do you want from me?</h2>
+<button onclick="answerQ2('A Surprise 🎁')">A Surprise 🎁</button>
+<button onclick="answerQ2('A Promise 💍')">A Promise 💍</button>
+<button onclick="answerQ2('My Full Attention ❤️')">My Full Attention ❤️</button>
+<button onclick="answerQ2('Something only for me 🔐')">Something only for me 🔐</button>
+<div id="q2Res" class="response"></div>
 </div>
+
+<div id="q3" class="hidden">
+<h2>Are you sure you’re ready for this version of me?</h2>
+<button onclick="finalLock()">YES. I’m ready.</button>
+</div>
+
+<div id="ending" class="hidden"></div>
 
 </div>
 
@@ -172,40 +152,66 @@ function sayNo(){
     alert("This heart only accepts YES 😌❤️");
 }
 
+function typeEffect(element, text, speed){
+    let i = 0;
+    element.innerHTML = "";
+    function typing(){
+        if(i < text.length){
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
 function finalMessage(){
     const dateType = document.getElementById("dateType").value;
     const food = document.getElementById("foodChoice").value;
-
     const finalDiv = document.getElementById("final");
     finalDiv.classList.remove("hidden");
-    finalDiv.innerHTML = `
-        <h2>Access Granted 💖</h2>
-        <p>Date: ${dateType}</p>
-        <p>Food: ${food}</p>
-        <p>No distractions. Just us.</p>
-    `;
 
-    document.getElementById("questions").classList.remove("hidden");
+    typeEffect(finalDiv,
+        "Access Granted... 💖\n\nDate: " + dateType +
+        "\nFood: " + food +
+        "\n\nNo distractions.\nNo world.\nJust you and me.",
+        35
+    );
+
+    setTimeout(() => {
+        document.getElementById("questions").classList.remove("hidden");
+    }, 2500);
 }
 
-function nextQ(step, choice){
-    document.getElementById("q1").innerHTML =
+function answerQ1(choice){
+    document.body.classList.add("dim");
+    document.getElementById("q1Res").innerHTML =
         "Noted. I’ll be " + choice + " exactly the way you want.";
-    document.getElementById("q2Section").classList.remove("hidden");
+    setTimeout(() => {
+        document.getElementById("q2").classList.remove("hidden");
+    }, 1200);
 }
 
-function showDay(choice){
-    document.getElementById("dayResponse").innerHTML =
-        "Understood. " + choice + " mode activated.";
+function answerQ2(choice){
+    document.getElementById("q2Res").innerHTML =
+        "Request for '" + choice + "' accepted.";
+    setTimeout(() => {
+        document.getElementById("q3").classList.remove("hidden");
+    }, 1200);
 }
 
-function revealQ3(){
-    document.getElementById("q3Section").classList.remove("hidden");
-}
+function finalLock(){
+    document.body.style.background =
+        "linear-gradient(135deg,#ffb3d9,#ff66a3)";
+    document.querySelector(".container").style.transform = "scale(1.03)";
 
-function finalDrama(choice){
-    document.getElementById("finalDramaText").innerHTML =
-        "Request for '" + choice + "' accepted. Preparing something unforgettable.";
+    const ending = document.getElementById("ending");
+    ending.classList.remove("hidden");
+
+    typeEffect(ending,
+        "\n\nThen don’t blame me for falling harder.\n\nVersion 2.0 of Us begins now.",
+        40
+    );
 }
 
 </script>
