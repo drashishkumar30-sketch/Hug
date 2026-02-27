@@ -4,60 +4,50 @@
 <meta charset="UTF-8">
 <title>Our 3 Days ❤️</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
 
 body {
     margin: 0;
     background: linear-gradient(135deg, #fff5f8, #ffe6f0, #ffffff);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     overflow-x: hidden;
     color: #5a0033;
 }
 
-/* Floating Hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: floatUp 8s linear infinite;
-    opacity: 0.6;
-}
-
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0.6; }
-    100% { transform: translateY(-100vh); opacity: 0; }
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 50px;
     border-radius: 25px;
     width: 60%;
-    margin: 100px auto;
+    margin: 80px auto;
     box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
     border: 2px solid #ffcce6;
     animation: fadeIn 1.5s ease-in-out;
 }
 
-h1 { color: #ff3385; font-size: 32px; }
-h2 { color: #cc0066; }
-
 button {
     padding: 12px 25px;
-    margin: 15px;
-    border-radius: 15px;
+    margin: 12px;
+    border-radius: 12px;
     border: none;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     background: linear-gradient(45deg, #ff66a3, #ff99cc);
     color: white;
-    animation: pulse 2s infinite;
     transition: 0.3s ease;
+    font-weight: 600;
 }
 
 button:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
     box-shadow: 0 0 20px #ff99cc;
 }
 
@@ -68,14 +58,13 @@ select, input[type="text"] {
     border: 1px solid #ffcce6;
     width: 60%;
     text-align: center;
-    background-color: #fff;
-}
-
-input[type="range"]{
-    width:70%;
 }
 
 .hidden { display: none; }
+
+.fadeIn {
+    animation: fadeIn 1s ease forwards;
+}
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
@@ -86,19 +75,15 @@ input[type="range"]{
     position: fixed;
     bottom: 15px;
     right: 20px;
+    font-family: 'Playfair Display', serif;
     font-size: 18px;
     color: #ff99cc;
     opacity: 0.6;
-    font-weight: bold;
 }
 
-/* Drama Glow */
-.glow {
-    animation: glow 1.5s infinite alternate;
-}
-@keyframes glow {
-    from { box-shadow: 0 0 10px #ff66a3; }
-    to { box-shadow: 0 0 25px #ff3385; }
+.responseText {
+    margin-top: 15px;
+    font-weight: 500;
 }
 
 </style>
@@ -108,197 +93,119 @@ input[type="range"]{
 
 <div class="container">
 
-    <h1>Hey Yukti ❤️</h1>
-    <h2>Would you go on a date with me?</h2>
+<h1>Hey Yukti ❤️</h1>
+<h2>Would you go on a date with me?</h2>
 
-    <button onclick="startDate()">Yes 💘</button>
-    <button onclick="sayNo()">No 😌</button>
+<button onclick="startDate()">Yes 💘</button>
+<button onclick="sayNo()">No 😌</button>
 
-    <div id="step2" class="hidden">
-        <h2>Choose our Date Night</h2>
-        <select id="dateType">
-            <option value="Candle Light Dinner 🕯️">Candle Light Dinner 🕯️</option>
-            <option value="Beach Walk 🌊">Beach Walk 🌊</option>
-            <option value="Rooftop Under the Stars ✨">Rooftop Under the Stars ✨</option>
-        </select>
+<div id="step2" class="hidden">
+    <h2>Choose our Date Night</h2>
+    <select id="dateType">
+        <option>Candle Light Dinner 🕯️</option>
+        <option>Beach Walk 🌊</option>
+        <option>Rooftop Under the Stars ✨</option>
+    </select>
 
-        <h2>What food would you like to have?</h2>
-        <input type="text" id="foodChoice" placeholder="Type your favorite food...">
+    <h2>What food would you like?</h2>
+    <input type="text" id="foodChoice" placeholder="Your favorite...">
 
-        <br><br>
-        <button onclick="finalMessage()">Confirm 💌</button>
-    </div>
+    <br><br>
+    <button onclick="finalMessage()">Confirm 💌</button>
+</div>
 
-    <div id="final" class="hidden"></div>
+<div id="final" class="hidden"></div>
+
+<!-- DRAMATIC QUESTION FLOW -->
+
+<div id="questions" class="hidden">
+
+<h2>How do you want me to be?</h2>
+<button onclick="nextQ(1,'Romantic 💌')">Romantic 💌</button>
+<button onclick="nextQ(1,'Cute 🧸')">Cute 🧸</button>
+<button onclick="nextQ(1,'Hot 😈')">Hot 😈</button>
+<button onclick="nextQ(1,'All of them 🔥')">All of them 🔥</button>
+<div id="q1" class="responseText"></div>
+
+<div id="q2Section" class="hidden">
+<h2>Assign me per day…</h2>
+<p><b>Day 1?</b></p>
+<button onclick="showDay('Gentleman 🎩')">Gentleman 🎩</button>
+<button onclick="showDay('Flirty 😏')">Flirty 😏</button>
+
+<p><b>Day 2?</b></p>
+<button onclick="showDay('Soft 🌙')">Soft 🌙</button>
+<button onclick="showDay('Playful 🌊')">Playful 🌊</button>
+
+<p><b>Day 3?</b></p>
+<button onclick="showDay('Intense 👀')">Intense 👀</button>
+<button onclick="showDay('Slow & Close 💫')">Slow & Close 💫</button>
+
+<div id="dayResponse" class="responseText"></div>
+
+<button onclick="revealQ3()">Continue ➜</button>
+</div>
+
+<div id="q3Section" class="hidden">
+<h2>What’s the one thing you want from me?</h2>
+<button onclick="finalDrama('Surprise 🎁')">Surprise 🎁</button>
+<button onclick="finalDrama('A Promise 💍')">A Promise 💍</button>
+<button onclick="finalDrama('My Full Attention ❤️')">My Full Attention ❤️</button>
+<button onclick="finalDrama('Something only for you 🔐')">Something only for you 🔐</button>
+
+<div id="finalDramaText" class="responseText"></div>
+</div>
+
+</div>
 
 </div>
 
 <div class="watermark">Y + A ❤️</div>
 
-<!-- ================= DRAMATIC ADD ON ================= -->
-
-<div class="container" style="margin-top:50px;">
-
-<h2>How Excited Are You? 😏</h2>
-<input type="range" min="0" max="100" value="50" id="exciteSlider">
-<div id="sliderValue">Okayyy I see the smile 😌</div>
-
-<br><br>
-
-<h2>Countdown Until I See You ⏳</h2>
-<div id="countdown"></div>
-
-<br><br>
-
-<h2>How Are You Feeling? 💕</h2>
-<button onclick="mood('miss')">Miss me 😢</button>
-<button onclick="mood('excited')">Excited 😍</button>
-<button onclick="mood('shy')">Shy 🙈</button>
-<button onclick="mood('danger')">Dangerous 😈</button>
-<div id="moodText"></div>
-
-<br><br>
-
-<h2>I promise to protect you 24/7 💍</h2>
-<label>
-<input type="checkbox" id="promiseBox"> I agree
-</label>
-
-<br><br>
-
-<button onclick="unlock()">Unlock Private Surprise 🔐</button>
-<div id="secret" class="hidden">
-<h3>You unlocked my heart ❤️</h3>
-<p>This isn’t just 3 days. It’s a memory in the making.</p>
-</div>
-
-<br><br>
-
-<button onclick="loveExplosion()">Click if you love me ❤️🔥</button>
-
-<br><br>
-
-<button onclick="toggleMusic()">Play / Pause Our Song 🎵</button>
-
-<audio id="bgMusic" loop>
-<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-</audio>
-
-</div>
-
 <script>
 
-/* Floating Hearts */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => { heart.remove(); }, 8000);
-}
-setInterval(createHeart, 800);
-
-/* Original Date Logic */
-function startDate() {
+function startDate(){
     document.getElementById("step2").classList.remove("hidden");
 }
 
-function sayNo() {
-    alert("System Error 💘: This heart only accepts YES 😌 Try again, baby ❤️");
+function sayNo(){
+    alert("This heart only accepts YES 😌❤️");
 }
 
-function finalMessage() {
+function finalMessage(){
     const dateType = document.getElementById("dateType").value;
     const food = document.getElementById("foodChoice").value;
+
     const finalDiv = document.getElementById("final");
     finalDiv.classList.remove("hidden");
-
     finalDiv.innerHTML = `
-        <h2>Access Granted, My Love 💖</h2>
-        <p><b>Date Selected:</b> ${dateType}</p>
-        <p><b>Food Chosen:</b> ${food} 🍽️</p>
-        <br>
-        <p>No distractions.</p>
-        <p>No world.</p>
-        <p>Just you and me.</p>
-        <br>
-        <p>And on Day 3…</p>
-        <p><b>There’s a surprise waiting in that balcony 🌙✨</b></p>
-        <br>
-        <p>Version 2.0 of "Us" starts now.</p>
+        <h2>Access Granted 💖</h2>
+        <p>Date: ${dateType}</p>
+        <p>Food: ${food}</p>
+        <p>No distractions. Just us.</p>
     `;
+
+    document.getElementById("questions").classList.remove("hidden");
 }
 
-/* DRAMA SECTION */
-
-// Slider
-const slider = document.getElementById("exciteSlider");
-const sliderText = document.getElementById("sliderValue");
-slider.oninput = function() {
-    let val = this.value;
-    if(val < 30) sliderText.innerHTML = "Hmm… acting cool huh?";
-    else if(val < 60) sliderText.innerHTML = "Okayyy I see the smile 😏";
-    else if(val < 90) sliderText.innerHTML = "Someone is blushinggg ❤️";
-    else sliderText.innerHTML = "Marry me already 😌🔥";
-};
-
-// Countdown
-var countDownDate = new Date("Mar 5, 2026 18:00:00").getTime();
-setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("countdown").innerHTML =
-    days + "d " + hours + "h " + minutes + "m ";
-}, 1000);
-
-// Mood
-function mood(type){
-    let text = document.getElementById("moodText");
-    if(type=="miss") text.innerHTML="Come here, I’ll hug you tight ❤️";
-    if(type=="excited") text.innerHTML="That’s my girl 😌🔥";
-    if(type=="shy") text.innerHTML="Stop blushing… or don’t 😏";
-    if(type=="danger") text.innerHTML="Oh? Should I be scared? 😈";
+function nextQ(step, choice){
+    document.getElementById("q1").innerHTML =
+        "Noted. I’ll be " + choice + " exactly the way you want.";
+    document.getElementById("q2Section").classList.remove("hidden");
 }
 
-// Promise
-document.getElementById("promiseBox").addEventListener("change", function(){
-    if(this.checked){
-        this.parentElement.classList.add("glow");
-    }
-});
-
-// Unlock
-function unlock(){
-    let pass = prompt("What does Ashish call you?");
-    if(pass && pass.toLowerCase()=="baby"){
-        document.getElementById("secret").classList.remove("hidden");
-    } else {
-        alert("Wrong answer 😏 Try again.");
-    }
+function showDay(choice){
+    document.getElementById("dayResponse").innerHTML =
+        "Understood. " + choice + " mode activated.";
 }
 
-// Love explosion
-function loveExplosion(){
-    for(let i=0;i<20;i++){
-        let heart = document.createElement("div");
-        heart.innerHTML="❤️";
-        heart.className="heart";
-        heart.style.left=Math.random()*100+"vw";
-        document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),4000);
-    }
+function revealQ3(){
+    document.getElementById("q3Section").classList.remove("hidden");
 }
 
-// Music
-function toggleMusic(){
-    var music = document.getElementById("bgMusic");
-    if(music.paused) music.play();
-    else music.pause();
+function finalDrama(choice){
+    document.getElementById("finalDramaText").innerHTML =
+        "Request for '" + choice + "' accepted. Preparing something unforgettable.";
 }
 
 </script>
