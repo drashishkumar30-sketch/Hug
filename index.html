@@ -15,37 +15,16 @@ body {
     text-align: center;
     overflow-x: hidden;
     color: #5a0033;
-    transition: 0.5s ease;
-}
-
-/* Floating Hearts */
-.heart {
-    position: fixed;
-    font-size: 20px;
-    animation: floatUp linear forwards;
-    pointer-events: none;
-}
-
-@keyframes floatUp {
-    from {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(-120vh) scale(1.5);
-        opacity: 0;
-    }
 }
 
 .container {
     background: rgba(255,255,255,0.95);
     padding: 50px;
     border-radius: 25px;
-    width: 60%;
+    width: 65%;
     margin: 80px auto;
     box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
     border: 1px solid #ffd6e8;
-    transition: 0.5s ease;
 }
 
 h1, h2 {
@@ -69,7 +48,18 @@ button:hover {
     box-shadow: 0 0 15px #ffc2d9;
 }
 
+input[type="text"], select, input[type="range"] {
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 1px solid #ffd6e8;
+    width: 60%;
+    text-align: center;
+}
+
 .hidden { display: none; }
+
+.response { margin-top: 15px; font-weight: 500; }
 
 .watermark {
     position: fixed;
@@ -80,9 +70,17 @@ button:hover {
     opacity: 0.7;
 }
 
-.response {
-    margin-top: 15px;
-    font-weight: 500;
+/* Floating hearts */
+.heart {
+    position: fixed;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-120vh); opacity: 0; }
 }
 
 </style>
@@ -115,32 +113,45 @@ button:hover {
 
 <div id="final" class="hidden"></div>
 
-<div id="questions" class="hidden">
+<!-- NEW ADDITIONS -->
 
-<div id="q1">
-<h2>How do you want me to be?</h2>
-<button onclick="answerQ1('Romantic 💌')">Romantic 💌</button>
-<button onclick="answerQ1('Cute 🧸')">Cute 🧸</button>
-<button onclick="answerQ1('Hot 😈')">Hot 😈</button>
-<button onclick="answerQ1('All of them 🔥')">All of them 🔥</button>
-<div id="q1Res" class="response"></div>
+<div id="extraSection" class="hidden">
+
+<h2>You are mine for the next 3 days 💖</h2>
+
+<h2>What does Ashish call you?</h2>
+<input type="text" id="nicknameInput" placeholder="Type your answer...">
+<br>
+<button onclick="checkNickname()">Submit</button>
+<div id="nicknameResult" class="response"></div>
+
+<br><br>
+
+<h2>Message for Day 1</h2>
+<button onclick="showDay(1)">Reveal</button>
+<div id="day1" class="response hidden">
+Day 1 is for smiles, soft touches, and laughing like nothing else exists.
 </div>
 
-<div id="q2" class="hidden">
-<h2>What’s the one thing you want from me?</h2>
-<button onclick="answerQ2('A Surprise 🎁')">A Surprise 🎁</button>
-<button onclick="answerQ2('A Promise 💍')">A Promise 💍</button>
-<button onclick="answerQ2('My Full Attention ❤️')">My Full Attention ❤️</button>
-<button onclick="answerQ2('Something only for you 🔐')">Something only for you 🔐</button>
-<div id="q2Res" class="response"></div>
+<h2>Message for Day 2</h2>
+<button onclick="showDay(2)">Reveal</button>
+<div id="day2" class="response hidden">
+Day 2 is for deeper talks, sea breeze, and holding you a little closer.
 </div>
 
-<div id="q3" class="hidden">
-<h2>Are you sure you’re ready for this version of me?</h2>
-<button onclick="finalLock()">YES. I’m ready.</button>
+<h2>Message for Day 3</h2>
+<button onclick="showDay(3)">Reveal</button>
+<div id="day3" class="response hidden">
+Day 3 is for slow moments, balcony silence, and unforgettable memories.
 </div>
 
-<div id="ending" class="hidden"></div>
+<br><br>
+
+<h2>How excited are you? 😏</h2>
+<input type="range" min="0" max="100" value="50" id="exciteSlider">
+<div id="sliderText" class="response">
+Hmm… medium energy 👀
+</div>
 
 </div>
 
@@ -150,7 +161,7 @@ button:hover {
 
 <script>
 
-/* Continuous Floating Hearts */
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -159,20 +170,9 @@ function createHeart() {
     heart.style.bottom = "-20px";
     heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 8000);
+    setTimeout(() => heart.remove(), 8000);
 }
-
-setInterval(createHeart, 600);
-
-/* Extra Burst */
-function heartBurst() {
-    for(let i=0;i<25;i++){
-        createHeart();
-    }
-}
+setInterval(createHeart, 700);
 
 function startDate(){
     document.getElementById("step2").classList.remove("hidden");
@@ -182,68 +182,46 @@ function sayNo(){
     alert("This heart only accepts YES 😌❤️");
 }
 
-function typeEffect(element, text, speed){
-    let i = 0;
-    element.innerHTML = "";
-    function typing(){
-        if(i < text.length){
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-        }
-    }
-    typing();
-}
-
 function finalMessage(){
-    const dateType = document.getElementById("dateType").value;
-    const food = document.getElementById("foodChoice").value;
     const finalDiv = document.getElementById("final");
     finalDiv.classList.remove("hidden");
-
-    typeEffect(finalDiv,
-        "Access Granted... 💖\n\nDate: " + dateType +
-        "\nFood: " + food +
-        "\n\nNo distractions.\nJust you and me.",
-        35
-    );
-
-    setTimeout(() => {
-        document.getElementById("questions").classList.remove("hidden");
-    }, 2500);
+    finalDiv.innerHTML = `
+        <h2>Access Granted 💖</h2>
+        <p>No distractions. Just you and me.</p>
+    `;
+    document.getElementById("extraSection").classList.remove("hidden");
 }
 
-function answerQ1(choice){
-    document.getElementById("q1Res").innerHTML =
-        "Noted. I’ll be " + choice + " exactly the way you want.";
-    heartBurst();
-    setTimeout(() => {
-        document.getElementById("q2").classList.remove("hidden");
-    }, 1200);
+function checkNickname(){
+    const value = document.getElementById("nicknameInput").value.toLowerCase();
+    const result = document.getElementById("nicknameResult");
+
+    if(value === "cookie"){
+        result.innerHTML = "Great! 💖 Correct answer.";
+    } else {
+        result.innerHTML = "Hmm… try again 😌";
+    }
 }
 
-function answerQ2(choice){
-    document.getElementById("q2Res").innerHTML =
-        "Request for '" + choice + "' accepted.";
-    heartBurst();
-    setTimeout(() => {
-        document.getElementById("q3").classList.remove("hidden");
-    }, 1200);
+function showDay(day){
+    document.getElementById("day"+day).classList.remove("hidden");
 }
 
-function finalLock(){
-    document.body.style.background =
-        "linear-gradient(135deg,#ffe6f2,#ffb3d9)";
-    heartBurst();
+const slider = document.getElementById("exciteSlider");
+const sliderText = document.getElementById("sliderText");
 
-    const ending = document.getElementById("ending");
-    ending.classList.remove("hidden");
+slider.oninput = function(){
+    let val = this.value;
 
-    typeEffect(ending,
-        "\n\nThen don’t blame me for falling harder.\n\nVersion 2.0 of Us begins now.",
-        40
-    );
-}
+    if(val < 25)
+        sliderText.innerHTML = "Acting calm… but I know better 😌";
+    else if(val < 50)
+        sliderText.innerHTML = "Okay okay I see that smile 💕";
+    else if(val < 75)
+        sliderText.innerHTML = "Someone is getting excited 🔥";
+    else
+        sliderText.innerHTML = "100%? Don’t blame me later 😏";
+};
 
 </script>
 
