@@ -10,12 +10,31 @@
 
 body {
     margin: 0;
-    background: linear-gradient(135deg, #fff5f8, #ffe6f0, #ffffff);
+    background: linear-gradient(135deg, #fff9fc, #ffeef5, #ffffff);
     font-family: 'Quicksand', sans-serif;
     text-align: center;
     overflow-x: hidden;
     color: #5a0033;
     transition: 0.5s ease;
+}
+
+/* Floating Hearts */
+.heart {
+    position: fixed;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+    }
 }
 
 .container {
@@ -24,8 +43,8 @@ body {
     border-radius: 25px;
     width: 60%;
     margin: 80px auto;
-    box-shadow: 0 15px 40px rgba(255,105,180,0.25);
-    border: 2px solid #ffcce6;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+    border: 1px solid #ffd6e8;
     transition: 0.5s ease;
 }
 
@@ -40,38 +59,25 @@ button {
     border: none;
     font-size: 15px;
     cursor: pointer;
-    background: linear-gradient(45deg, #ff66a3, #ff99cc);
+    background: linear-gradient(45deg, #ff8fb3, #ffc2d9);
     color: white;
     transition: 0.3s ease;
 }
 
 button:hover {
     transform: scale(1.08);
-    box-shadow: 0 0 20px #ff99cc;
+    box-shadow: 0 0 15px #ffc2d9;
 }
 
 .hidden { display: none; }
-
-.fadeIn {
-    animation: fadeIn 1s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.dim {
-    background: linear-gradient(135deg, #ffd6e8, #ffc2e0);
-}
 
 .watermark {
     position: fixed;
     bottom: 15px;
     right: 20px;
     font-size: 18px;
-    color: #ff99cc;
-    opacity: 0.6;
+    color: #ffb3d9;
+    opacity: 0.7;
 }
 
 .response {
@@ -121,11 +127,11 @@ button:hover {
 </div>
 
 <div id="q2" class="hidden">
-<h2>What do you want from me?</h2>
+<h2>What’s the one thing you want from me?</h2>
 <button onclick="answerQ2('A Surprise 🎁')">A Surprise 🎁</button>
 <button onclick="answerQ2('A Promise 💍')">A Promise 💍</button>
 <button onclick="answerQ2('My Full Attention ❤️')">My Full Attention ❤️</button>
-<button onclick="answerQ2('Something only for me 🔐')">Something only for me 🔐</button>
+<button onclick="answerQ2('Something only for you 🔐')">Something only for you 🔐</button>
 <div id="q2Res" class="response"></div>
 </div>
 
@@ -143,6 +149,30 @@ button:hover {
 <div class="watermark">Y + A ❤️</div>
 
 <script>
+
+/* Continuous Floating Hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(createHeart, 600);
+
+/* Extra Burst */
+function heartBurst() {
+    for(let i=0;i<25;i++){
+        createHeart();
+    }
+}
 
 function startDate(){
     document.getElementById("step2").classList.remove("hidden");
@@ -174,7 +204,7 @@ function finalMessage(){
     typeEffect(finalDiv,
         "Access Granted... 💖\n\nDate: " + dateType +
         "\nFood: " + food +
-        "\n\nNo distractions.\nNo world.\nJust you and me.",
+        "\n\nNo distractions.\nJust you and me.",
         35
     );
 
@@ -184,9 +214,9 @@ function finalMessage(){
 }
 
 function answerQ1(choice){
-    document.body.classList.add("dim");
     document.getElementById("q1Res").innerHTML =
         "Noted. I’ll be " + choice + " exactly the way you want.";
+    heartBurst();
     setTimeout(() => {
         document.getElementById("q2").classList.remove("hidden");
     }, 1200);
@@ -195,6 +225,7 @@ function answerQ1(choice){
 function answerQ2(choice){
     document.getElementById("q2Res").innerHTML =
         "Request for '" + choice + "' accepted.";
+    heartBurst();
     setTimeout(() => {
         document.getElementById("q3").classList.remove("hidden");
     }, 1200);
@@ -202,8 +233,8 @@ function answerQ2(choice){
 
 function finalLock(){
     document.body.style.background =
-        "linear-gradient(135deg,#ffb3d9,#ff66a3)";
-    document.querySelector(".container").style.transform = "scale(1.03)";
+        "linear-gradient(135deg,#ffe6f2,#ffb3d9)";
+    heartBurst();
 
     const ending = document.getElementById("ending");
     ending.classList.remove("hidden");
