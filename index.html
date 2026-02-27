@@ -49,6 +49,18 @@ button:hover {
     box-shadow: 0 0 15px #ffc2d9;
 }
 
+.wiggle {
+    animation: wiggle 1s infinite;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
 input[type="text"], select, input[type="range"] {
     padding: 10px;
     border-radius: 10px;
@@ -190,6 +202,13 @@ Hmm… medium energy 👀
 
 <hr>
 
+<h2>Do you want me to buy you a Miniso product? 🤭</h2>
+<button onclick="minisoAnswer('Yes 😌')">Yes 😌</button>
+<button class="wiggle" onclick="minisoAnswer('Yessssss 👉🏻👈🏻')">Yessssss 👉🏻👈🏻</button>
+<div id="minisoResponse" class="response"></div>
+
+<hr>
+
 <h2>Before we begin…</h2>
 <p>Promise me one thing.</p>
 <button onclick="makePromise()">I promise.</button>
@@ -203,7 +222,6 @@ Hmm… medium energy 👀
 
 <script>
 
-/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -231,8 +249,7 @@ function confirmWish(){
         return;
     }
 
-    const step2 = document.getElementById("step2");
-    step2.innerHTML = `
+    document.getElementById("step2").innerHTML = `
         <h2 class="successPop">Access Granted, Madam 💖</h2>
         <p class="successPop">Your wish is my command.</p>
         <p>Preparing ${food} with extra love... 🍽️</p>
@@ -282,6 +299,22 @@ slider.oninput = function(){
     else
         sliderText.innerHTML = "100%? Don’t blame me later 😏";
 };
+
+function minisoAnswer(choice){
+    const response = document.getElementById("minisoResponse");
+
+    if(choice.includes("Yessssss")){
+        response.innerHTML =
+            "<div class='successPop'>Energy noted 🤭✨<br>Miniso trip confirmed.</div>";
+    } else {
+        response.innerHTML =
+            "Of course. Madam's wish is already approved 💖";
+    }
+
+    for(let i=0;i<10;i++){
+        createHeart();
+    }
+}
 
 function makePromise(){
     const result = document.getElementById("promiseResult");
